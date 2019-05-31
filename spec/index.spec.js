@@ -1,11 +1,11 @@
-const { Pokemon, Trainer, Battle } = require("../index.js");
+const { Character, Trainer, Battle } = require("../index.js");
 const { expect } = require("chai");
 
-describe("Pokemon", () => {
-  // test for pokemon object
-  describe("Pokemon object", () => {
-    it("instance of Pokemon has correct properties", () => {
-      const charizard = new Pokemon();
+describe("Character", () => {
+  // test for character object
+  describe("Character object", () => {
+    it("instance of Character has correct properties", () => {
+      const charizard = new Character();
       expect(charizard).to.have.keys(
         "name",
         "hitPoints",
@@ -16,11 +16,11 @@ describe("Pokemon", () => {
       );
     });
   });
-  // test Pokemon methods
-  describe("to test Pokemon method()", () => {
+  // test Character methods
+  describe("to test Character method()", () => {
     // test talkMethod()
-    it("Pokemon can make sound i.e. Pokemon.prototype.talkMethod()", () => {
-      const charizard = new Pokemon(
+    it("Character can make sound i.e. Character.prototype.talkMethod()", () => {
+      const charizard = new Character(
         "charizard",
         10,
         15,
@@ -31,8 +31,8 @@ describe("Pokemon", () => {
       expect(charizard.talkMethod()).to.eql("charizard made a sound of purr");
     });
     // test useYourMoves()
-    it("Pokemon can move i.e. Pokemon.prototype.useYourMoves()", () => {
-      const charizard = new Pokemon(
+    it("Character can move i.e. Character.prototype.useYourMoves()", () => {
+      const charizard = new Character(
         "charizard",
         10,
         15,
@@ -44,7 +44,7 @@ describe("Pokemon", () => {
     });
   });
   // test for trainer object
-  describe.only("Trainer object", () => {
+  describe("Trainer object", () => {
     it("Check that trainer has key properties", () => {
       const trainer1 = new Trainer("trainer1");
       expect(trainer1).to.have.keys(
@@ -55,12 +55,14 @@ describe("Pokemon", () => {
       );
     });
     it("Check that trainer has catch method", () => {
-      const trainer1 = new Trainer("pikachu");
-      trainer1.catch("apple");
-      expect(trainer1.storage).to.eql(["apple"]);
+      const trainer1 = new Trainer();
+      const testPoke = new Character("a");
+      trainer1.catch(testPoke);
+      expect(trainer1.storage).to.eql([testPoke]);
     });
-    it.only("Check trainer storage contains pokemon object", () => {
-      const charizard = new Pokemon(
+    it("checks for character keys when created, rejects any invalid characters", () => {
+      const trainer1 = new Trainer();
+      const charizard = new Character(
         "charizard",
         10,
         15,
@@ -68,23 +70,36 @@ describe("Pokemon", () => {
         "bite",
         "normal"
       );
-      const trainer1 = new Trainer("pikachu");
       trainer1.catch(charizard);
-      console.log(charizard);
       expect(trainer1.storage).to.eql([charizard]);
     });
 
     it("Check that max storage not breached", () => {
-      const trainer1 = new Trainer("pikachu");
-      trainer1.catch("apple");
-      trainer1.catch("orange");
-      trainer1.catch("berry");
-      expect(trainer1.storage).to.eql(["apple", "orange"]);
+      const trainer1 = new Trainer();
+      const a = new Character(),
+        b = new Character(),
+        c = new Character(),
+        d = new Character(),
+        e = new Character(),
+        f = new Character(),
+        g = new Character(),
+        h = new Character();
+      trainer1.catch(a);
+      trainer1.catch(b);
+      trainer1.catch(c);
+      trainer1.catch(d);
+      trainer1.catch(e);
+      trainer1.catch(f);
+      trainer1.catch(g);
+      trainer1.catch(h);
+      expect(trainer1.storage).to.eql([a, b, c, d, e, f]);
     });
     it("Check that quantity reflects number of items", () => {
-      const trainer1 = new Trainer("pikachu");
-      trainer1.catch("apple");
-      trainer1.catch("orange");
+      const trainer1 = new Trainer();
+      const a = new Character(),
+        b = new Character();
+      trainer1.catch(a);
+      trainer1.catch(b);
       expect(trainer1.quantity).to.equal(2);
     });
   });

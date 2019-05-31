@@ -27,35 +27,54 @@ const movePool = [
 const elementPool = ["fire", "ice", "light", "void", "normal"];
 
 //random character creation, takes only name argument
-function Character(
-  name,
-  hitPoints = Math.floor(Math.random() * Math.floor(20) + 1),
-  attackDamage = Math.floor(Math.random() * Math.floor(20) + 1),
-  sound = soundPool[Math.floor(Math.random() * soundPool.length)],
-  move = movePool[Math.floor(Math.random() * movePool.length)],
-  type = elementPool[Math.floor(Math.random() * elementPool.length)]
-) {
-  this.name = name;
-  this.hitPoints = hitPoints;
-  this.attackDamage = attackDamage;
-  this.sound = sound;
-  this.move = move;
-  this.type = type;
+class Character {
+  constructor(
+    name,
+    hitPoints = Math.floor(Math.random() * Math.floor(20) + 1),
+    attackDamage = Math.floor(Math.random() * Math.floor(20) + 1),
+    sound = soundPool[Math.floor(Math.random() * soundPool.length)],
+    move = movePool[Math.floor(Math.random() * movePool.length)],
+    type = elementPool[Math.floor(Math.random() * elementPool.length)]
+  ) {
+    this.name = name;
+    this.hitPoints = hitPoints;
+    this.attackDamage = attackDamage;
+    this.sound = sound;
+    this.move = move;
+    this.type = type;
+    this.isAlive = true;
+  }
+
+  // Character talk method()
+  talkMethod() {
+    return `${this.name} made a sound of ${this.sound}`;
+  }
+
+  // Character useYourMoves method()
+  useYourMoves() {
+    return `${this.name} will now ${this.move}`;
+  }
 }
 
 const newCharacter = new Character("Wigglytuft");
 
-// Character talk method()
-Character.prototype.talkMethod = function() {
-  return `${this.name} made a sound of ${this.sound}`;
-};
+// sub-class to Character
+class grassCharacter extends Character {
+  constructor(name, hitPoints, attackDamage, sound, move, type, isGrass) {
+    super(name, hitPoints, attackDamage, sound, move, type);
+    this.isGrass = true;
+  }
+  grassPower() {
+    return `${this.name} will destroy you with ${
+      this.hitPoints
+    } points accumulated`;
+  }
+}
 
-// Character useYourMoves method()
-Character.prototype.useYourMoves = function() {
-  return `${this.name} will now ${this.move}`;
-};
+// create new instance of grassyPikachu using the grassCharacter()
+const grassypikachu = new grassCharacter("grassypikachu");
 
-// Trainer object
+//Trainer object
 function Trainer(name) {
   this.name = name;
   this.storage = [];
@@ -79,17 +98,10 @@ Trainer.prototype.catch = function(item) {
   }
 };
 
-// Battle object
-const Battle = function() {};
-
-// Battle method()
-const battleMethod = {
-  battleMethod1: function() {},
-  battleMethod1: function() {}
-};
+// Battle object & methods : refer to battle.js
 
 module.exports = {
   Character,
-  Trainer,
-  Battle
+  grassCharacter,
+  Trainer
 };

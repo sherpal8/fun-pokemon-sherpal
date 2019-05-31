@@ -1,4 +1,5 @@
-const { Character, Trainer, Battle } = require("../index.js");
+const { Character, grassCharacter, Trainer } = require("../index.js");
+// const { Battle } = require("../battle.js");   ---> to uncomment when/if needed
 const { expect } = require("chai");
 
 describe("Character", () => {
@@ -12,8 +13,46 @@ describe("Character", () => {
         "attackDamage",
         "sound",
         "move",
-        "type"
+        "type",
+        "isAlive"
       );
+    });
+  });
+  // test for grassCharacter - a class extension of the Character prototype
+  describe("Character sub-class: properties", () => {
+    it("grassCharacter subclass has correct properties", () => {
+      const grassypikachu = new grassCharacter(
+        "grassypikachu",
+        23,
+        14,
+        "roar",
+        "jump",
+        "alien",
+        true
+      );
+      expect(grassypikachu).to.have.keys(
+        "name",
+        "hitPoints",
+        "attackDamage",
+        "sound",
+        "move",
+        "type",
+        "isGrass",
+        "isAlive"
+      );
+    });
+    it("grassCharacter.grassPower() will have the right dialogue", () => {
+      expect(
+        new grassCharacter(
+          "pikachu",
+          20,
+          11,
+          "meow",
+          "hop",
+          "fish",
+          true
+        ).grassPower()
+      ).to.equal("pikachu will destroy you with 20 points accumulated");
     });
   });
   // test Character methods
@@ -102,13 +141,5 @@ describe("Character", () => {
       trainer1.catch(b);
       expect(trainer1.quantity).to.equal(2);
     });
-  });
-  // test for battle object
-  describe("Battle object test", () => {
-    it("", () => {});
-  });
-  // test for battle methods
-  describe("battleMethod test", () => {
-    it("", () => {});
   });
 });

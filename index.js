@@ -1,3 +1,6 @@
+////////////////////////////// WIZARDS N SHIT //////////////////////////////
+//////////////////the tropetastic generic battle simulator//////////////////
+
 const soundPool = [
   "*burp*",
   "*sniff*",
@@ -7,12 +10,24 @@ const soundPool = [
   "can't we be friends?"
 ];
 
-const movePool = ["flick", "glare", "stinks-out", "low-blow"];
+const movePool = [
+  "fireball",
+  "frenzy",
+  "freeze",
+  "shard",
+  "reflect",
+  "blind",
+  "posses",
+  "negate",
+  "consume",
+  "rally",
+  "inspire"
+];
 
-const elementPool = ["grass", "fire", "wind"];
+const elementPool = ["fire", "ice", "light", "void", "normal"];
 
 //random character creation, takes only name argument
-function Pokemon(
+function Character(
   name,
   hitPoints = Math.floor(Math.random() * Math.floor(20) + 1),
   attackDamage = Math.floor(Math.random() * Math.floor(20) + 1),
@@ -28,15 +43,15 @@ function Pokemon(
   this.type = type;
 }
 
-const newCharacter = new Pokemon("Wigglytuft");
+const newCharacter = new Character("Wigglytuft");
 
-// Pokemon talk method()
-Pokemon.prototype.talkMethod = function() {
+// Character talk method()
+Character.prototype.talkMethod = function() {
   return `${this.name} made a sound of ${this.sound}`;
 };
 
-// Pokemon useYourMoves method()
-Pokemon.prototype.useYourMoves = function() {
+// Character useYourMoves method()
+Character.prototype.useYourMoves = function() {
   return `${this.name} will now ${this.move}`;
 };
 
@@ -50,11 +65,17 @@ function Trainer(name) {
 
 const trainer1 = new Trainer("Ralph");
 
-// Trainer catchMethod() - to store more pokemon
+// Trainer catchMethod() - to store more characters
 Trainer.prototype.catch = function(item) {
   if (this.quantity < this.maxStorage) {
-    this.quantity++;
-    this.storage.push(item);
+    if (
+      item.hasOwnProperty(
+        "name" && "hitPoints" && "attackDamage" && "sound" && "move" && "type"
+      )
+    ) {
+      this.quantity++;
+      this.storage.push(item);
+    }
   }
 };
 
@@ -68,7 +89,7 @@ const battleMethod = {
 };
 
 module.exports = {
-  Pokemon,
+  Character,
   Trainer,
   Battle
 };

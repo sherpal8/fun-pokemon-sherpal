@@ -59,6 +59,21 @@ describe("Pokemon", () => {
       trainer1.catch("apple");
       expect(trainer1.storage).to.eql(["apple"]);
     });
+    it.only("Check trainer storage contains pokemon object", () => {
+      const charizard = new Pokemon(
+        "charizard",
+        10,
+        15,
+        "purr",
+        "bite",
+        "normal"
+      );
+      const trainer1 = new Trainer("pikachu");
+      trainer1.catch(charizard);
+      console.log(charizard);
+      expect(trainer1.storage).to.eql([charizard]);
+    });
+
     it("Check that max storage not breached", () => {
       const trainer1 = new Trainer("pikachu");
       trainer1.catch("apple");

@@ -1,5 +1,9 @@
-const { Battle } = require("../battle.js");
-const { Character, grassCharacter, Trainer } = require("../index.js");
+const { Battle } = require("../lib/battle.js");
+const {
+  Character,
+  grassCharacter,
+  Trainer
+} = require("../lib/pokemon.js/index.js.js");
 const { expect } = require("chai");
 
 // test for battle object

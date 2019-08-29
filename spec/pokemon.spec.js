@@ -1,4 +1,4 @@
-const { Character, grassCharacter, Trainer } = require("../index.js");
+const { Character, grassCharacter, Trainer } = require("../lib/pokemon.js");
 // const { Battle } = require("../battle.js");   ---> to uncomment when/if needed
 const { expect } = require("chai");
 

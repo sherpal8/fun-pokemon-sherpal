@@ -1,58 +1,47 @@
 const { Battle } = require("../lib/battle.js");
-const {
-  Character,
-  grassCharacter,
-  Trainer
-} = require("../lib/pokemon.js/index.js.js");
+const { Pokemon } = require("../lib/pokemon.js");
+const { Trainer } = require("../lib/trainer.js");
 const { expect } = require("chai");
 
-// test for battle object
-describe("Battle", () => {
-  it("Battle object test", () => {
+describe("Instances of Battle constructor function", () => {
+  it("instance of new battle from the Battle() constructor which contains 2 different trainers", () => {
     const trainer1 = new Trainer();
     const trainer2 = new Trainer();
-    const testPoke1 = new Character("a", 15, 10);
-    const testPoke2 = new Character("b", 15, 10);
-    trainer1.catch(testPoke1);
-    trainer2.catch(testPoke2);
-    new Battle(trainer1, trainer2);
-    expect(testPoke1.hitPoints).to.equal(5);
+    const newBattle = new Battle(trainer1, trainer2);
+    expect(newBattle.trainer1).to.equal(trainer1);
+    expect(newBattle.trainer2).to.equal(trainer2);
   });
-  it("Check if player is alive", () => {
+  it("instance of new battle should have names of pokemons that each of the trainer wishes to use for battle", () => {
     const trainer1 = new Trainer();
     const trainer2 = new Trainer();
-    const testPoke1 = new Character("a", 15, 20);
-    const testPoke2 = new Character("b", 15, 20);
-    trainer1.catch(testPoke1);
-    trainer2.catch(testPoke2);
-    new Battle(trainer1, trainer2);
-    expect(trainer1.storage).to.eql([]);
+    const newPokemon1 = new Pokemon("Felix", 0, 0, "purr", "jump", "fire");
+    const newPokemon2 = new Pokemon("Zizi", 0, 0, "woof", "fly", "grass");
+    trainer1.catchMethod(newPokemon1);
+    trainer2.catchMethod(newPokemon2);
+    const pokemonNameTrainer1 = Object.keys(trainer1.storage)[0]; // 'Felix'
+    const pokemonNameTrainer2 = Object.keys(trainer2.storage)[0]; // 'Zizi'
+    const newBattle = new Battle(
+      trainer1,
+      trainer2,
+      pokemonNameTrainer1,
+      pokemonNameTrainer2
+    );
+    expect(newBattle.pokemonNameTrainer1).to.equal("Felix");
+    expect(newBattle.pokemonNameTrainer2).to.equal("Zizi");
   });
-  it.only("Checks if trainer has any players left", () => {
-    const trainer1 = new Trainer("john");
-    const trainer2 = new Trainer();
-    const testPoke1 = new Character("a", 15, 20);
-    const testPoke2 = new Character("b", 15, 20);
-    trainer1.catch(testPoke1);
-    trainer2.catch(testPoke2);
-    new Battle(trainer1, trainer2);
-    expect(trainer1.storage).to.eql([]);
+  it("instance of new battle should have access the `fightMethod()` method", () => {
+    const newBattle = new Battle();
+    expect(newBattle.fightMethod).to.be.a("function");
+  });
+  it("when the `fightMethod()` invoked, it will return final fight outcome as a string", () => {
+    const trainer1 = new Trainer("John");
+    const trainer2 = new Trainer("Jane");
+    const newPokemon1 = new Pokemon("Felix", 10, 10, "purr", "jump", "fire");
+    const newPokemon2 = new Pokemon("Zizi", 10, 10, "woof", "fly", "grass");
+    trainer1.catchMethod(newPokemon1);
+    trainer2.catchMethod(newPokemon2);
+    const newBattle = new Battle(trainer1, trainer2, "Felix", "Zizi");
+    const fightOutcome = newBattle.fightMethod();
+    expect(typeof fightOutcome).to.equal("string");
   });
 });
-
-// describe("Battle", () => {
-//   describe.only("Battle object test", () => {
-//     it("check player 1 can reduce opponents hitPoint", () => {
-//       const p1 = new Character("p1", 15, 10);
-//       const p2 = new Character("p2", 15);
-//       console.log(p2);
-//       // Battle();
-//       expect(Battle()).to.equal(5);
-//       console.log(p2);
-//     });
-//   });
-//   // test for battle methods
-//   describe("battleMethod() test", () => {
-//     it("", () => {});
-//   });
-// });

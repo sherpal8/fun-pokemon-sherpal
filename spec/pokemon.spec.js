@@ -29,6 +29,11 @@ describe("Instances of Pokemon constructor function", () => {
     const newPokemon = new Pokemon("Felix", 0, 0, "purr", "jump", "galactic");
     expect(newPokemon.type).to.equal("normal");
   });
+  it("new instance will have different strenghth and weakness depending on type", () => {
+    const newPokemon = new Pokemon("Felix", 0, 0, "purr", "jump", "fire");
+    expect(newPokemon.strength).to.equal("grass");
+    expect(newPokemon.weakness).to.equal("water");
+  });
   it("new instance can invoke prototype method of `talkMethod()`", () => {
     const newPokemon = new Pokemon("Felix", 0, 0, "purr", "jump", "grass");
     expect(newPokemon.talkMethod()).to.equal("Felix just made a sound of purr");

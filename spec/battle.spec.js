@@ -4,7 +4,7 @@ const { Trainer } = require("../lib/trainer.js");
 const { expect } = require("chai");
 
 describe("Instances of Battle constructor function", () => {
-  it("instance of new battle from the Battle() constructor which contains 2 different trainers", () => {
+  it.only("instance of new battle from the Battle() constructor which contains 2 different trainers", () => {
     const trainer1 = new Trainer();
     const trainer2 = new Trainer();
     const newBattle = new Battle(trainer1, trainer2);

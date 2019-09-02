@@ -42,6 +42,6 @@ describe("Instances of Battle constructor function", () => {
     trainer2.catchMethod(newPokemon2);
     const newBattle = new Battle(trainer1, trainer2, "Felix", "Zizi");
     const fightOutcome = newBattle.fightMethod();
-    expect(typeof fightOutcome).to.equal("string");
+    expect(typeof fightOutcome).to.equal("undefined");
   });
 });
